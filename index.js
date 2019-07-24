@@ -1,7 +1,7 @@
 const municipiosRepository = require('./municipios');
 const inputHa = process.argv.slice(2)[0];
 const inputTown = 'sevilla';
-let diferenciaDeReferencia = 100000;
+let diferenciaDeReferencia = 1000000000;
 let municipioDeReferencia = {};
 let superficieDeReferencia = 0;
 municipiosRepository.municipios.forEach(function(item){
@@ -14,8 +14,25 @@ municipiosRepository.municipios.forEach(function(item){
         }
     }
 });
-console.log("Consulta: " + inputHa);
-console.log("Comunidad: " + municipioDeReferencia.comunidad + " Provincia: " + municipioDeReferencia.provincia + " Municipio: " + municipioDeReferencia.municipio + " superficie: " + superficieDeReferencia);
+
+let mensajeMultiplicador = "";
+if (municipioDeReferencia.superficieHa > inputHa*2) {
+    let multiplicador = Math.round(municipioDeReferencia.superficieHa / inputHa);
+    if (multiplicador>1) {
+        mensajeMultiplicador = multiplicador + " veces mas pequeño que";
+    }
+}
+
+if (municipioDeReferencia.superficieHa < inputHa * 2) {
+    let multiplicador = Math.round(inputHa / municipioDeReferencia.superficieHa);
+    if (multiplicador>1) {
+        mensajeMultiplicador = multiplicador + " veces";
+    }
+}
+
+console.log(inputHa + " hectáreas equivalen a:");
+console.log(mensajeMultiplicador + " " + municipioDeReferencia.municipio + " provincia de " + municipioDeReferencia.provincia);
+console.log("con una superficie de " + municipioDeReferencia.superficieHa + " y una población de " + municipioDeReferencia.habitantes + " habitantes");
 
 function isCandidate(candidate, inputTown) {
     let output = false;
