@@ -1,6 +1,6 @@
 const municipiosRepository = require('./municipios');
 const inputHa = process.argv.slice(2)[0];
-const inputTown = 'Guipuzkoa';
+const inputTown = 'sevilla';
 let diferenciaDeReferencia = 100000;
 let municipioDeReferencia = {};
 let superficieDeReferencia = 0;
@@ -19,9 +19,9 @@ console.log("Comunidad: " + municipioDeReferencia.comunidad + " Provincia: " + m
 
 function isCandidate(candidate, inputTown) {
     let output = false;
-    if (candidate.comunidad.includes(inputTown)||
-        candidate.provincia.includes(inputTown)||
-        candidate.municipio.includes(inputTown)){
+    if (candidate.comunidad.toLowerCase().includes(inputTown)||
+        candidate.provincia.toLowerCase().includes(inputTown)||
+        candidate.municipio.toLowerCase().includes(inputTown)){
         output = true;
     }
     return output;
